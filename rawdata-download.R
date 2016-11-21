@@ -165,7 +165,7 @@ downloadRaw = function(i="Mouse",mart,txseq=T,geneseq=T,upseq=1000,
   
   if (!(skipIfFileExists & file.exists(paste0("txSeqs-",fn)))) {
     if (!is.null(genome) & txseq) {
-      txSeqs <- extractTranscriptSeqs(genome, txdb,use.names=T)
+      txSeqs <- extractTranscriptSeqs(genome, txdb) #,use.names=T
       save(txSeqs,file=paste0("txSeqs-",fn))
     }
   }

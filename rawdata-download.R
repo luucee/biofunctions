@@ -143,8 +143,7 @@ getProm = function(upseq,gseq,up=2000,dw=500) {
 }
 
 downloadRaw = function(i="Mouse",mart,txseq=T,geneseq=T,upseq=1000, 
-                       promReg=c(2000,500), orthologs="",
-                       withGeneSymbols=T,
+                       promReg=c(2000,500), orthologs=c(),
                        suppcol=T,skipIfFileExists=F) {
   o=ucsc.org[i]
   message("Starting download ",i," raw data (assembly ",o,")")
@@ -226,7 +225,7 @@ downloadRaw = function(i="Mouse",mart,txseq=T,geneseq=T,upseq=1000,
     #orthologs=c("drerio","hsapiens")
     if(length(orthologs)>0) {
       orthocol = paste0(orthologs,"_homolog_ensembl_gene")
-      orthotable = getBM(attributes = c("external_gene_name","ensembl_transcript_id",orthocol), mart = mym)
+      orthotable = getBM(attributes = c("ensembl_transcript_id",orthocol), mart = mym)
       orthotable=aggregate(orthotable,by=list(orthotable$ensembl_transcript_id),paste,collapse=",")
       rownames(orthotable) = as.character(orthotable$ensembl_transcript_id)
       txpresenti = txClass$TXNAME %in% orthotable$ensembl_transcript_id

@@ -9,7 +9,7 @@ aracne2 = function(mexp,from,to,nperm=1000,DPI=TRUE) {
   for (i in 1:nperm) {
     mi.tmp = knnmi.cross(mexp[from,],mexp[to,sample(1:ncol(mexp))])
     mi.perm = mi.perm + (mi < mi.tmp)
-    rates = rates + mi.tmp
+    rates = rates + abs(mi.tmp)
     setTxtProgressBar(pb, i)
   }
   

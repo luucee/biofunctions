@@ -87,11 +87,14 @@ cross.cor <- function(x, y, verbose = TRUE, ncore="all", met="pearson", ...){
 
 
 
-activity = function(mexp,cormat,tau=0.6) {
+activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
   mexp.s = scale(mexp)
-  actmat = mexp
+  if (is.null(tflist)) {
+    tflist=rownames(cormat)
+  }
+  actmat = mexp[tflist,]
   actmat[1:length(actmat)]=0
-  for(tfi in rownames(cormat)) {
+  for(tfi in tflist) {
     postrg = names(cormat[tfi,cormat[tfi,] > tau])
     negtrg = names(cormat[tfi,cormat[tfi,] < -tau])
     apos = 1

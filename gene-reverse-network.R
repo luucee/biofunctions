@@ -1,6 +1,6 @@
 
 
-aracne2 = function(mexp,from,to,nperm=1000,DPI=TRUE) {
+aracne2 = function(mexp,from,to,nperm=1000) {
   require(parmigene)
   pb = txtProgressBar(min=1,max=nperm,style=3)
   mi = knnmi.cross(mexp[from,],mexp[to,])
@@ -22,29 +22,29 @@ aracne2 = function(mexp,from,to,nperm=1000,DPI=TRUE) {
   
   #pval.fdr = p.adjust(pval,method = "fdr")
   #mi[pval.fdr<=0.05] = 0
-  
-  if (DPI) {
-    commong = intersect(from,to)
-    onlyfrom = setdiff(from,to)
-    onlyto = setdiff(to,from)
-    extn = length(commong)+length(onlyfrom)+length(onlyto)
-    extmi = matrix(0,nrow=extn,ncol=extn)
-    rownames(extmi) = c(commong,onlyto,onlyfrom)
-    colnames(extmi) = c(commong,onlyto,onlyfrom)
-    extmi[commong,commong] = mi[commong,commong,drop=FALSE]
-    extmi[onlyto,commong] = t(mi[commong,onlyto,drop=FALSE])
-    extmi[onlyfrom,commong] = mi[onlyfrom,commong,drop=FALSE]
-    extmi[commong,onlyfrom] = t(mi[onlyfrom,commong,drop=FALSE])
-    extmi[onlyto,onlyfrom] = t(mi[onlyfrom,onlyto,drop=FALSE])
-    extmi[commong,onlyto] = mi[commong,onlyto,drop=FALSE]
-    extmi[onlyfrom,onlyto] = mi[onlyfrom,onlyto,drop=FALSE]
-    extmi = aracne.a(extmi)
-    mi = extmi[from,to]
-  }
-  close(pb)
+ 
   return(list(MI=mi,PVAL=pval))
 }
 
+dpi2 = function(mi,from,to) {
+  require(parmigene)
+  commong = intersect(from,to)
+  onlyfrom = setdiff(from,to)
+  onlyto = setdiff(to,from)
+  extn = length(commong)+length(onlyfrom)+length(onlyto)
+  extmi = matrix(0,nrow=extn,ncol=extn)
+  rownames(extmi) = c(commong,onlyto,onlyfrom)
+  colnames(extmi) = c(commong,onlyto,onlyfrom)
+  extmi[commong,commong] = mi[commong,commong,drop=FALSE]
+  extmi[onlyto,commong] = t(mi[commong,onlyto,drop=FALSE])
+  extmi[onlyfrom,commong] = mi[onlyfrom,commong,drop=FALSE]
+  extmi[commong,onlyfrom] = t(mi[onlyfrom,commong,drop=FALSE])
+  extmi[onlyto,onlyfrom] = t(mi[onlyfrom,onlyto,drop=FALSE])
+  extmi[commong,onlyto] = mi[commong,onlyto,drop=FALSE]
+  extmi[onlyfrom,onlyto] = mi[onlyfrom,onlyto,drop=FALSE]
+  extmi = aracne.a(extmi)
+  return(extmi[from,to])
+}
 
 
 cross.cor <- function(x, y, verbose = TRUE, ncore="all", met="pearson", ...){

@@ -9,6 +9,7 @@ activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
   actmat = mexp[tflist,]
   actmat[1:length(actmat)]=0
   pb = txtProgressBar(min=1,max=length(tflist),style=3)
+  i=1
   for(tfi in tflist) {
     postrg = names(cormat[tfi,cormat[tfi,] > tau])
     negtrg = names(cormat[tfi,cormat[tfi,] < -tau])
@@ -22,6 +23,7 @@ activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
     }
     actmat[tfi,] =  apos - aneg
     setTxtProgressBar(pb, i)
+    i=i+1
   }
   return(actmat)
 }

@@ -39,3 +39,11 @@ consolidate.genenames <- function(M,genenames,t=0.2) {
   return(MM_r)
 }
 
+map.genenames = function(gn,gnt) {
+  newnames=c()
+  for(j in gn) {
+    newnames = c(newnames,grep(paste0("^",j,"\\!\\d+$"),gnt,value=T,ignore.case = T))
+    newnames = c(newnames,grep(paste0("^",j,"$"),gnt,value=T,ignore.case = T))
+  }
+  return(newnames)
+}

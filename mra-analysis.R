@@ -24,6 +24,7 @@ activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
     actmat[tfi,] =  apos - aneg
     setTxtProgressBar(pb, i)
     i=i+1
+    
   }
   return(actmat)
 }

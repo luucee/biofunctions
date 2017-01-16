@@ -2,7 +2,7 @@
 
 activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
   
-  mexp.s = scale(mexp)
+  mexp.s = t(scale(t(mexp)))
   if (is.null(tflist)) {
     tflist=rownames(cormat)
   }

@@ -9,6 +9,7 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
     mexp.s[i,] = (mexp.s[i,] - mean(mexp[i,]))/sd(mexp.s[i,])
   }
   tflist = union(names(posReg),names(negReg))
+  tflist = tflist[tflist %in% rownames(mexp)]
   actmat = mexp[tflist,]
   actmat[1:length(actmat)]=0
   pb = txtProgressBar(min=1,max=length(tflist),style=3)

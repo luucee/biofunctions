@@ -2,7 +2,12 @@
 
 activity = function(mexp,cormat,tflist=NULL,tau=0.6) {
   
-  mexp.s = t(scale(t(mexp)))
+  
+  mexp.s = mexp
+  #mexp.s = scale(mexp)
+  for(i in 1:nrow(mexp.s)){
+    mexp.s[i,] = (mexp.s[i,] - mean(mexp[i,]))/sd(mexp.s[i,])
+  }
   if (is.null(tflist)) {
     tflist=rownames(cormat)
   }

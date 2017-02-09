@@ -16,11 +16,13 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
   i=1
   for(tfi in tflist) {
     postrg = posReg[[tfi]]
+    postrg = postrg[postrg %in% rownames(mexp)]
     apos = 1
     if (length(postrg)>0) {
       apos = apply(mexp.s[postrg,,drop=F],2,sum)/length(postrg)
     }
     negtrg = negReg[[tfi]]
+    negtrg = negtrg[negtrg %in% rownames(mexp)]
     aneg = 1
     if (length(negtrg)>0) {
       aneg = apply(mexp.s[negtrg,,drop=F],2,sum)/length(negtrg)

@@ -8,6 +8,9 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
   for(i in 1:nrow(mexp.s)){
     mexp.s[i,] = (mexp.s[i,] - mean(mexp[i,]))/sd(mexp.s[i,])
   }
+  # remove na
+  nass = apply(mexp.s,1,function(x) sum(is.na(x)))
+  mexp.s = mexp.s[nass==0,]
   tflist = union(names(posReg),names(negReg))
   tflist = tflist[tflist %in% rownames(mexp)]
   actmat = mexp[tflist,]

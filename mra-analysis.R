@@ -12,21 +12,21 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
   nass = apply(mexp.s,1,function(x) sum(is.na(x)))
   mexp.s = mexp.s[nass==0,]
   tflist = union(names(posReg),names(negReg))
-  tflist = tflist[tflist %in% rownames(mexp)]
-  actmat = mexp[tflist,]
+  tflist = tflist[tflist %in% rownames(mexp.s)]
+  actmat = mexp.s[tflist,]
   actmat[1:length(actmat)]=0
   pb = txtProgressBar(min=1,max=length(tflist),style=3)
   i=1
   for(tfi in tflist) {
     postrg = posReg[[tfi]]
-    postrg = postrg[postrg %in% rownames(mexp)]
+    postrg = postrg[postrg %in% rownames(mexp.s)]
     
     apos = 1
     if (length(postrg)>0) {
       apos = apply(mexp.s[postrg,,drop=F],2,sum)/length(postrg)
     }
     negtrg = negReg[[tfi]]
-    negtrg = negtrg[negtrg %in% rownames(mexp)]
+    negtrg = negtrg[negtrg %in% rownames(mexp.s)]
     aneg = 1
     if (length(negtrg)>0) {
       aneg = apply(mexp.s[negtrg,,drop=F],2,sum)/length(negtrg)

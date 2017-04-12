@@ -23,7 +23,7 @@ aracne2 = function(mexp,from,to,nperm=1000) {
   #pval.fdr = p.adjust(pval,method = "fdr")
   #mi[pval.fdr<=0.05] = 0
  
-  return(list(MI=mi,PVAL=pval))
+  return(list(MI=mi,PVAL=pval,NPERM=nperm))
 }
 
 dpi2 = function(mi,from,to) {

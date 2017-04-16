@@ -208,7 +208,7 @@ mindy2 = function(mexp,mod,tf,target,nbins=5,h=0,nboot=100,perm=F,siglev=0.05,me
     }
   }
   if(is.numeric(siglev)) {
-    retval$PVAL = p.adjust(retval$PVAL,method = "fdr")
+    #retval$PVAL = p.adjust(retval$PVAL,method = "fdr")
     retval = subset(retval,PVAL<siglev)
   }
   return(retval)

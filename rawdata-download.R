@@ -142,7 +142,7 @@ getProm = function(upseq,gseq,up=2000,dw=500) {
   return(rseq)
 }
 
-downloadRaw = function(i="Mouse",mart,txseq=T,geneseq=T,upseq=1000, 
+downloadRaw = function(i="Mouse",mart=mymartCurrent(),txseq=T,geneseq=T,upseq=1000, 
                        promReg=c(2000,500), orthologs=c(),
                        suppcol=T,skipIfFileExists=F) {
   o=ucsc.org[i]

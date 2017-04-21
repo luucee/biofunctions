@@ -12,12 +12,11 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
   nass = apply(mexp.s,1,function(x) sum(is.na(x)))
   mexp.s = mexp.s[nass==0,]
   tflist = union(names(posReg),names(negReg))
-  tflist = tflist[tflist %in% rownames(mexp.s)]
+  #tflist = tflist[tflist %in% rownames(mexp.s)]
   if (length(tflist)==0) {
     stop("no TF names found in datasets")
   }
-  actmat = mexp.s[tflist,]
-  actmat[1:length(actmat)]=0
+  actmat = matrix(0,nrow=length(tflist),ncol=ncol(mexp.s))
   pb = txtProgressBar(min=1,max=length(tflist),style=3)
   i=1
   for(tfi in tflist) {

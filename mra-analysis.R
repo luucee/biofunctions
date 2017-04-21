@@ -17,6 +17,8 @@ activity = function(mexp,posReg,negReg,tau=0.6) {
     stop("no TF names found in datasets")
   }
   actmat = matrix(0,nrow=length(tflist),ncol=ncol(mexp.s))
+  rownames(actmat) = tflist
+  colnames(actmat) = colnames(mexp)
   pb = txtProgressBar(min=1,max=length(tflist),style=3)
   i=1
   for(tfi in tflist) {

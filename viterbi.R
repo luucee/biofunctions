@@ -8,14 +8,14 @@ viterbi <- function(transProbs,emissionProbs,States,startProbs, observation)
     p = array(NA, c(nStates, nObservations))
     dimnames(v) = list(states = States, index = 1:nObservations)
     dimnames(p) = list(states = States, index = 1:nObservations)
-    v[States, 1] = log(startProbs[States] * emissionProbs[States,observation[1]])
+    v[States, 1] = log(startProbs[States] * emissionProbs[States,as.character(observation[1])])
     p[States, 1] = 0
     for (k in 2:nObservations) {
         for (state in States) {
             #cat(k,state,"\n")
             temp = v[States, k - 1]+log(transProbs[States,state])
             maxi=which.max(temp)
-            v[state, k] = log(emissionProbs[state, observation[k]]) + temp[maxi]
+            v[state, k] = log(emissionProbs[state, as.character(observation[k])]) + temp[maxi]
             p[state, k] = maxi
         }
         if (sum(v[States, k]==-Inf) == nStates) {
@@ -25,7 +25,7 @@ viterbi <- function(transProbs,emissionProbs,States,startProbs, observation)
             temp = v[States, k - 1]
             maxi=which.max(temp)
             for (state in States) {
-                v[state, k] = log(emissionProbs[state, observation[k]]) + temp[maxi]
+                v[state, k] = log(emissionProbs[state, as.character(observation[k])]) + temp[maxi]
                 p[state, k] = maxi
             }
         }

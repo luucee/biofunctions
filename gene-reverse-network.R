@@ -1,4 +1,7 @@
 
+# how to import
+# library(devtools)
+# source_url("https://raw.github.com/luucee/biofunctions/gene-reverse-network.R")
 
 aracne2 = function(mexp,from,to,nperm=1000) {
   require(parmigene)
